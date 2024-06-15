@@ -1,4 +1,4 @@
-# Zig & Raylib
+# [Z]ig & R[aylib]
 
 ## Overview
 
