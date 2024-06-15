@@ -9,12 +9,18 @@
     <ul>
       <li>
         <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiateStreaming_static">instantiateStreaming</a>
+        <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Using_the_JavaScript_API">Using_the_JavaScript_API</a>
       </li>
     </ul>
     <h2>Experimentations</h2>
     <p id="result">Loading...</p>
     <script>
-      WebAssembly.instantiateStreaming(fetch("add.wasm")).then(
+      const importObject = {
+        imports: {
+          ilog: (arg) => console.log(arg), <!-- ilog stands for imported log -->
+        }
+      }
+      WebAssembly.instantiateStreaming(fetch("add.wasm"), importObject).then(
         (obj) => {
           console.log("Hello");
           // Exports the function add
