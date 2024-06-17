@@ -12,6 +12,11 @@
   - As *Raylib* has a `build.zig` file it should be easy to build it with *Zaylib*
 - Build & execute: `zig build && ./zig-out/bin/zaylib`
 
+### Wasm in Zig
+- We are using [wasmtime C API](https://docs.wasmtime.dev/c-api/).
+  - We just untar the [release v21.0.1](https://github.com/bytecodealliance/wasmtime/releases/tag/v21.0.1) into the current directory.
+  - We modified the `build.zig` file.
+
 ## Next
 
 - Can it be fun to have a game engine written in Zig while the game logic is a Wasm plugin.

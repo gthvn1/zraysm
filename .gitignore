@@ -1,4 +1,7 @@
 zig-out/
 .zig-cache/
-raylib/
+
 *.wasm
+
+raylib/
+wasmtime-v21.0.1-x86_64-linux-c-api/

@@ -15,6 +15,12 @@ pub fn build(b: *std.Build) void {
     exe.addObjectFile(b.path("raylib/libraylib.a"));
     exe.addIncludePath(b.path("raylib"));
 
+    // Link with wasmtime
+    exe.addObjectFile(b.path("wasmtime-v21.0.1-x86_64-linux-c-api/lib/libwasmtime.so"));
+    exe.addIncludePath(b.path("wasmtime-v21.0.1-x86_64-linux-c-api/include"));
+
+    exe.addIncludePath(b.path("raylib"));
+
     // Also build and link with our own library
     exe.addIncludePath(b.path("c-src"));
     exe.addCSourceFiles(.{
