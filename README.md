@@ -17,6 +17,11 @@
   - We just untar the [release v21.0.1](https://github.com/bytecodealliance/wasmtime/releases/tag/v21.0.1) into the current directory.
   - We modified the `build.zig` file.
 
+## Links
+
+- https://github.com/zigwasm/wasmtime-zig
+- https://github.com/malcolmstill/zware
+
 ## Next
 
 - Can it be fun to have a game engine written in Zig while the game logic is a Wasm plugin.
