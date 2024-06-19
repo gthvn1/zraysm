@@ -4,122 +4,21 @@ const r = @cImport({
     @cInclude("raylib.h");
 });
 
-const w = @cImport({
-    @cInclude("wasi.h");
-    @cInclude("wasm.h");
-    @cInclude("wasmtime.h");
-});
+const c = @import("c-bindings.zig");
+const Engine = c.Engine;
+const Store = c.Store;
+const Context = c.Context;
+const Module = c.Module;
+const Instance = c.Instance;
 
 const f = @cImport({
     @cInclude("foo.h");
 });
 
-const WasmError = error{
-    EngineInit,
-    StoreInit,
-    ContextInit,
-    ModuleInit,
-    ModuleIsNull,
-    InstanceInit,
-    ParseWat,
-};
-
-const Engine = struct {
-    engine: *w.wasm_engine_t,
-
-    pub fn init() WasmError!Engine {
-        const engine = w.wasm_engine_new();
-
-        return Engine{
-            .engine = engine orelse return WasmError.EngineInit,
-        };
-    }
-
-    pub fn deinit(self: *const Engine) void {
-        w.wasm_engine_delete(self.engine);
-    }
-};
-
-const Store = struct {
-    store: *w.wasmtime_store_t,
-
-    pub fn init(engine: *const Engine) WasmError!Store {
-        const store = w.wasmtime_store_new(engine.engine, null, null);
-
-        return Store{
-            .store = store orelse return WasmError.StoreInit,
-        };
-    }
-
-    pub fn deinit(self: *const Store) void {
-        defer w.wasmtime_store_delete(self.store);
-    }
-};
-
-const Context = struct {
-    context: *w.wasmtime_context_t,
-
-    pub fn init(store: *const Store) WasmError!Context {
-        const context = w.wasmtime_store_context(store.store);
-
-        return Context{
-            .context = context orelse return WasmError.ContextInit,
-        };
-    }
-};
-
-const Module = struct {
-    module: *w.wasmtime_module_t,
-
-    pub fn init(engine: *const Engine, wasm: *w.wasm_byte_vec_t) WasmError!Module {
-        var module: ?*w.wasmtime_module_t = null;
-        const err = w.wasmtime_module_new(engine.engine, wasm.data, wasm.size, &module);
-        if (err != null) {
-            return WasmError.ModuleInit;
-        }
-
-        return Module{
-            .module = module orelse return WasmError.ModuleIsNull,
-        };
-    }
-
-    pub fn deinit(module: *const Module) void {
-        defer w.wasmtime_module_delete(module.module);
-    }
-};
-
-const Instance = struct {
-    instance: *w.wasmtime_instance_t,
-
-    pub fn init(context: *const Context, module: *const Module) WasmError!Instance {
-        const context_opt: ?*w.wasmtime_context_t = context.context;
-        const module_opt: ?*const w.wasmtime_module_t = module.module;
-        var instance: *w.wasmtime_instance_t = undefined;
-        const instance_ptr: **w.wasmtime_instance_t = &instance;
-        const instance_single_ptr: [*c]w.wasmtime_instance_t = @ptrCast(instance_ptr);
-        // TODO: it looks a little bit laborious to get the right type...
-
-        const err = w.wasmtime_instance_new(
-            context_opt,
-            module_opt,
-            null, // We don't import anything for now
-            0,
-            instance_single_ptr,
-            null, // Trap
-        );
-        if (err != null) {
-            return WasmError.InstanceInit;
-        }
-
-        return Instance{
-            .instance = instance,
-        };
-    }
-};
-
 pub fn main() !void {
     const allocator = std.heap.c_allocator;
 
+    //--------------------------- WASM : P A R T ------------------------------
     const engine = try Engine.init();
     defer engine.deinit();
 
@@ -128,43 +27,64 @@ pub fn main() !void {
 
     const context = try Context.init(&store);
 
-    // Load the WAT file
-    const file = try std.fs.cwd().openFile("examples/wastime-c-bindings/gcd.wat", .{});
-    defer file.close();
-
-    // Get its size
-    const fstat = try file.stat();
-    const fsize = fstat.size;
-    std.debug.print("File size = {d}\n", .{fsize});
-
-    // Allocate memory for data.
-    // TODO: check if it should be done using w.wasm_byte_vec_new_uninitialized...
-    const binary: []u8 = try allocator.alloc(u8, fsize);
-    defer allocator.free(binary);
-
-    const bytes_read = try file.readAll(binary);
-    std.debug.print("Bytes read = {d}\n", .{bytes_read});
-    //std.debug.print("binary = {}\n", .{std.fmt.fmtSliceHexLower(binary)});
-
-    const wat: w.wasm_byte_vec_t = .{
-        .size = fsize,
-        .data = binary.ptr,
-    };
-
-    // Parse the WAT into the binary WASM file
-    var wasm: w.wasm_byte_vec_t = undefined;
-    const ret = w.wasmtime_wat2wasm(wat.data, wat.size, &wasm);
-    if (ret != null) {
-        return WasmError.ParseWat;
-    }
-
     // Compile and instantiate the module
-    const module = try Module.init(&engine, &wasm);
-    defer Module.deinit(&module);
+    const module = try Module.init(&engine, "examples/wastime-c-bindings/gcd.wat");
+    defer module.deinit();
 
-    const instance = try Instance.init(&context, &module);
-    _ = instance;
+    const instance = try Instance.init(&context, &module, allocator);
+    defer instance.deinit();
 
+    // var gcd: w.wasmtime_extern_t = undefined;
+    // try instance.get_export("gcd", &gcd);
+
+    // std.debug.print("gcd        : {any}\n", .{gcd});
+    // std.debug.print("gcd.of.func: {any}\n", .{gcd.of.func});
+
+    // // We should be able to call it now...
+    // const a: i32 = 6;
+    // const b: i32 = 27;
+
+    // const param0 = w.wasmtime_val_t{
+    //     .kind = w.WASMTIME_I32,
+    //     .of = .{ .i32 = a },
+    // };
+
+    // const param1 = w.wasmtime_val_t{
+    //     .kind = w.WASMTIME_I32,
+    //     .of = .{ .i32 = b },
+    // };
+
+    // const params = [_]w.wasmtime_val_t{ param0, param1 };
+    // const result: w.wasmtime_val_t = undefined;
+    // const result_ptr: [*c]w.wasmtime_val_t = @constCast(&result);
+
+    // const context_opt: ?*w.wasmtime_context_t = context.context;
+    // std.debug.print("Trying to call gcd function...", .{});
+    // // wasmtime_func_call(
+    // //  store: ?*wasmtime_context_t,
+    // //  func: [*c]const wasmtime_func_t,
+    // //  args: [*c]const wasmtime_val_t,
+    // //  nargs: usize,
+    // //  results: [*c]wasmtime_val_t,
+    // //  nresults: usize,
+    // //  trap: [*c]?*wasm_trap_t) ?*wasmtime_error_t;
+    // const err = w.wasmtime_func_call(
+    //     context_opt,
+    //     &gcd.of.func,
+    //     &params[0],
+    //     2,
+    //     result_ptr,
+    //     1,
+    //     null,
+    // );
+
+    // if (err != null) {
+    //     std.debug.print("failed to call gcd", .{});
+    // } else {
+    //     std.debug.print("gcd({d}, {d}) = {d}\n", .{ a, b, result.of.i32 });
+    // }
+
+    //--------------------------- R A Y L I B : P A R T -----------------------
     // Now let's play with Raylib
     r.InitWindow(800, 600, "Raylib in Zig");
     defer r.CloseWindow();
