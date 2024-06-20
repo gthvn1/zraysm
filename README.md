@@ -2,21 +2,42 @@
 
 ## Overview
 
-- Experimentation based on Zig and Raylib
-- Have a look to *Wasm*. Currently there is no relation between *Zaylib* and *Wasm* but it could be nice to run *Wasm* into *Zaylib* ;)...
-  - **wasm/** is standalone directory.
-- To run *Zaylib* you will need to install *Raylib* header and library:
+- Experimentation around Zig, Raylib and Wasm.
+- A game in Zig using Raylib bindings and allowing plugins written in Wasm...
+- Currently we are able to use Raylib and build a small WAT file.
+
+## Installation
+
+- To use *Zaylib* you will need to install [Raylib](https://github.com/raysan5/raylib) and [Wasmer](https://github.com/wasmerio/wasmer/releases).
+
+- Install *Raylib* header and library:
   - You need to build [Raylib](https://github.com/raysan5/raylib)
-  - Create a repo called *raylib* (or modify *build.zig*)
+  - Create a directory called *raylib* (or modify *build.zig*)
   - Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
   - As *Raylib* has a `build.zig` file it should be easy to build it with *Zaylib*
-- Build & execute: `zig build && ./zig-out/bin/zaylib`
 
-## Next
+- Install *Wasmer* headers and library.
+  - Download [Wasmer](https://github.com/wasmerio/wasmer/releases)
+  - Create a directory *wasmer*
+  - go into the directory and untar the previously downloaded release
+    - we only need `lib/libwasmer.so` and the `include/*` but you can keep other stuff
 
-- Can it be fun to have a game engine written in Zig while the game logic is a Wasm plugin.
-- By doing this the game logic could be written in any langage that can generate wasm (Zig, Rust, C, ...)
-- We will need a wasm runtime in C so it will be easy to load and run wasm in our Zig code
-  - [wastime](https://github.com/bytecodealliance/wasmtime/)
-  - [wasm3](https://github.com/wasm3/wasm3)
-  - [wasmr](https://github.com/bytecodealliance/wasm-micro-runtime)
+- Run *Zaylib*
+  - We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
+
+## Changelog
+
+- 2024-06-20  Gthvn1  <gthvn1@gmail.com>
+  * Run a WAT string into our Zig code using Wasmer
+    * It is the example in the *wasmer/include/README.md*
+
+- 2024-06-17  Gthvn1  <gthvn1@gmail.com>
+  * Add examples of wasmtime C API
+    * don't know if we will use wasmtime or another runtime.
+
+- 2024-06-15  Gthvn1  <gthvn1@gmail.com>
+  * Add simple example of using WAT file into HTML
+    * It runs outside of Zig
+  * Link our program with Raylib
+  * Calling a C function from Zig (see foo)
+  * Initial commit
