@@ -15,6 +15,10 @@ pub fn build(b: *std.Build) void {
     exe.addObjectFile(b.path("raylib/libraylib.a"));
     exe.addIncludePath(b.path("raylib"));
 
+    // Link with wasmer
+    exe.addObjectFile(b.path("wasmer/lib/libwasmer.so"));
+    exe.addIncludePath(b.path("wasmer/include"));
+
     // Also build and link with our own library
     exe.addIncludePath(b.path("c-src"));
     exe.addCSourceFiles(.{
