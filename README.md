@@ -8,23 +8,26 @@
 
 ## Installation
 
-- To use *Zaylib* you will need to install [Raylib](https://github.com/raysan5/raylib) and [Wasmer](https://github.com/wasmerio/wasmer/releases).
+### Requirements
+- To use *Zaylib* you will need [Raylib](https://github.com/raysan5/raylib) and [Wasmer](https://github.com/wasmerio/wasmer/releases).
+  - For information we are testing with the following versions:
+    - Raylib: Release v5.0
+    - Wasmer: Release v4.3.2
 
-- Install *Raylib* header and library:
-  - You need to build [Raylib](https://github.com/raysan5/raylib)
-  - Create a directory called *raylib* (or modify *build.zig*)
-  - Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
-  - As *Raylib* has a `build.zig` file it should be easy to build it with *Zaylib*
+### Install Raylib header and library
+- You need to build [Raylib](https://github.com/raysan5/raylib)
+- Create a directory called *raylib* (or modify *build.zig*)
+- Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
+- As *Raylib* has a `build.zig` file it should be easy to build it with *Zaylib*
 
-- Install *Wasmer* headers and library.
-  - Download [Wasmer](https://github.com/wasmerio/wasmer/releases)
-  - Create a directory *wasmer*
-  - go into the directory and untar the previously downloaded release
-    - we only need `lib/libwasmer.so` and the `include/*` but you can keep other stuff
+### Install *Wasmer* headers and library
+- Download [Wasmer](https://github.com/wasmerio/wasmer/releases)
+- Create a directory *wasmer*
+- go into the directory and untar the previously downloaded release
+  - we only need `lib/libwasmer.so` and the `include/*` but you can keep other stuff
 
-- Run *Zaylib*
-  - We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
-
+### Run Zaylib
+- We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
 - After installing *Raylib* and *Wasmer* you should have a tree like:
 ```
 .
