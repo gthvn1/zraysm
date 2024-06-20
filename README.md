@@ -1,4 +1,4 @@
-# [Z]ig & R[aylib]
+# [Z]ig & R[aylib] & Wasm
 
 ## Overview
 
@@ -27,15 +27,15 @@
 
 ## Changelog
 
-- 2024-06-20  Gthvn1  <gthvn1@gmail.com>
+**2024-06-20**  Gthvn1  <gthvn1@gmail.com>
   * Run a WAT string into our Zig code using Wasmer
     * It is the example in the *wasmer/include/README.md*
 
-- 2024-06-17  Gthvn1  <gthvn1@gmail.com>
+**2024-06-17**  Gthvn1  <gthvn1@gmail.com>
   * Add examples of wasmtime C API
     * don't know if we will use wasmtime or another runtime.
 
-- 2024-06-15  Gthvn1  <gthvn1@gmail.com>
+**2024-06-15**  Gthvn1  <gthvn1@gmail.com>
   * Add simple example of using WAT file into HTML
     * It runs outside of Zig
   * Link our program with Raylib
