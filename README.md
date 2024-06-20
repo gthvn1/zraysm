@@ -25,6 +25,46 @@
 - Run *Zaylib*
   - We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
 
+- After installing *Raylib* and *Wasmer* you should have a tree like:
+```
+.
+├── build.zig
+├── c-src
+│   ├── foo.c
+│   └── foo.h
+├── examples
+│   ├── running-from-js
+│   │   ├── add.wat
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   └── run_server.sh
+│   └── wastime-c-bindings
+│       ├── gcd.c
+│       ├── gcd.wat
+│       ├── hello.c
+│       ├── hello.wat
+│       └── run.sh
+├── LICENSE
+├── raylib
+│   ├── libraylib.a
+│   └── raylib.h
+├── README.md
+├── src
+│   └── main.zig
+└── wasmer
+    ├── include
+    │   ├── README.md
+    │   ├── wasmer.h
+    │   ├── wasmer_wasm.h
+    │   ├── wasm.h
+    │   └── wasm.hh
+    ├── lib
+    │   ├── libwasmer.a
+    │   ├── libwasmer-headless.a
+    │   ├── libwasmer-headless.so
+    │   └── libwasmer.so
+    └── LICENSE
+```
 ## Changelog
 
 **2024-06-20**  Gthvn1  <gthvn1@gmail.com>
