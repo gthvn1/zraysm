@@ -14,7 +14,7 @@
     - Raylib: Release v5.0
     - Wasmer: Release v4.3.2
 
-### Install Raylib header and library
+### Install *Raylib* header and library
 - You need to build [Raylib](https://github.com/raysan5/raylib)
 - Create a directory called *raylib* (or modify *build.zig*)
 - Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
@@ -26,7 +26,7 @@
 - go into the directory and untar the previously downloaded release
   - we only need `lib/libwasmer.so` and the `include/*` but you can keep other stuff
 
-### Run Zaylib
+### Run *Zaylib*
 - We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
 - After installing *Raylib* and *Wasmer* you should have a tree like:
 ```
