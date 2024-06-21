@@ -20,9 +20,9 @@ pub fn build(b: *std.Build) void {
     exe.addIncludePath(b.path("wasmer/include"));
 
     // Also build and link with our own library
-    exe.addIncludePath(b.path("c-src"));
+    exe.addIncludePath(b.path("src/c"));
     exe.addCSourceFiles(.{
-        .root = b.path("c-src"),
+        .root = b.path("src/c"),
         .files = &[_][]const u8{"foo.c"},
         .flags = &[_][]const u8{},
     });

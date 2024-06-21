@@ -30,41 +30,42 @@
 ```
 .
 ├── build.zig
-├── c-src
-│   ├── foo.c
-│   └── foo.h
-├── samples
-│   ├── running-from-js
-│   │   ├── add.wat
-│   │   ├── favicon.ico
-│   │   ├── index.html
-│   │   └── run_server.sh
-│   └── wat
-│       ├── gcd.wat
-│       └── hello.wat
 ├── LICENSE
 ├── raylib
 │   ├── libraylib.a
 │   └── raylib.h
 ├── README.md
+├── samples
+│   ├── add.wasm
+│   ├── add.wat
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── README.md
+│   └── run_server.sh
 ├── src
+│   ├── c
+│   │   ├── foo.c
+│   │   └── foo.h
 │   ├── main.zig
+│   ├── wat
+│   │   ├── gcd.wat
+│   │   └── hello.wat
 │   └── wat.zig
-└── wasmer
-    ├── include
-    │   ├── README.md
-    │   ├── wasmer.h
-    │   ├── wasmer_wasm.h
-    │   ├── wasm.h
-    │   └── wasm.hh
-    ├── lib
-    │   └── libwasmer.so
-    └── LICENSE
+├── wasmer
+│   ├── include
+│   │   ├── README.md
+│   │   ├── wasmer.h
+│   │   ├── wasmer_wasm.h
+│   │   ├── wasm.h
+│   │   └── wasm.hh
+│   ├── lib
+│   │   └── libwasmer.so
+│   └── LICENSE
 ```
 
 ### Run *Zraysm*
 - We have an issue using `libwasmer.a` so to run it:
-  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./samples/wat/gcd.wat`
+  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./src/wat/gcd.wat`
   - **Note**: only wasm function that takes two i32 arguments and returns one i32 can be called for now
 
 ## Changelog
