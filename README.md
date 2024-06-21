@@ -41,7 +41,7 @@
 │   │   └── run_server.sh
 │   └── wat
 │       ├── gcd.wat
-│       ├── hello.wat
+│       └── hello.wat
 ├── LICENSE
 ├── raylib
 │   ├── libraylib.a
