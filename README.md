@@ -67,7 +67,7 @@
 ### Run *Zaylib*
 - We have an issue using `libwasmer.a` so to run it:
   - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib ./examples/wat/gcd.wat`
-  - **Note**: only wasm function that takes 2 i32 and returns an i32 can be used
+  - **Note**: only wasm function that takes two i32 arguments and returns one i32 can be called for now
 
 ## Changelog
 
