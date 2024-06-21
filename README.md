@@ -70,6 +70,9 @@
 ```
 ## Changelog
 
+**2024-06-21**  Gthvn1  <gthvn1@gmail.com>
+  * Read a WAT file instead of using the string
+
 **2024-06-20**  Gthvn1  <gthvn1@gmail.com>
   * Run a WAT string into our Zig code using Wasmer
     * It is the example in the *wasmer/include/README.md*
