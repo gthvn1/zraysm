@@ -26,8 +26,6 @@
 - go into the directory and untar the previously downloaded release
   - we only need `lib/libwasmer.so` and the `include/*` but you can keep other stuff
 
-### Run *Zaylib*
-- We have an issue using `libwasmer.a` so to run it: `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib`
 - After installing *Raylib* and *Wasmer* you should have a tree like:
 ```
 .
@@ -41,12 +39,9 @@
 │   │   ├── favicon.ico
 │   │   ├── index.html
 │   │   └── run_server.sh
-│   └── wastime-c-bindings
-│       ├── gcd.c
+│   └── wat
 │       ├── gcd.wat
-│       ├── hello.c
 │       ├── hello.wat
-│       └── run.sh
 ├── LICENSE
 ├── raylib
 │   ├── libraylib.a
@@ -68,7 +63,17 @@
     │   └── libwasmer.so
     └── LICENSE
 ```
+
+### Run *Zaylib*
+- We have an issue using `libwasmer.a` so to run it:
+  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zaylib ./examples/wat/gcd.wat`
+  - **Note**: only wasm function that takes 2 i32 and returns an i32 can be used
+
 ## Changelog
+
+**2024-06-21**  Gthvn1  <gthvn1@gmail.com>
+  * Read the WAT file as the first argument of `zaylib`
+  * Read a WAT file instead of using the string
 
 **2024-06-20**  Gthvn1  <gthvn1@gmail.com>
   * Run a WAT string into our Zig code using Wasmer
