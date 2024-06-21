@@ -33,7 +33,7 @@
 ├── c-src
 │   ├── foo.c
 │   └── foo.h
-├── examples
+├── samples
 │   ├── running-from-js
 │   │   ├── add.wat
 │   │   ├── favicon.ico
@@ -66,7 +66,7 @@
 
 ### Run *Zraysm*
 - We have an issue using `libwasmer.a` so to run it:
-  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./examples/wat/gcd.wat`
+  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./samples/wat/gcd.wat`
   - **Note**: only wasm function that takes two i32 arguments and returns one i32 can be called for now
 
 ## Changelog
@@ -80,7 +80,7 @@
     * It is the example in the *wasmer/include/README.md*
 
 **2024-06-17**  Gthvn1  <gthvn1@gmail.com>
-  * Add examples of wasmtime C API
+  * Add samples of wasmtime C API
     * don't know if we will use wasmtime or another runtime.
 
 **2024-06-15**  Gthvn1  <gthvn1@gmail.com>
