@@ -9,7 +9,7 @@
 ## Installation
 
 ### Requirements
-- To use *Zigraysm* you will need [Raylib](https://github.com/raysan5/raylib) and [Wasmer](https://github.com/wasmerio/wasmer/releases).
+- To use *Zraysm* you will need [Raylib](https://github.com/raysan5/raylib) and [Wasmer](https://github.com/wasmerio/wasmer/releases).
   - For information we are testing with the following versions:
     - Raylib: Release v5.0
     - Wasmer: Release v4.3.2
@@ -18,7 +18,7 @@
 - You need to build [Raylib](https://github.com/raysan5/raylib)
 - Create a directory called *raylib* (or modify *build.zig*)
 - Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
-- As *Raylib* has a `build.zig` file it should be easy to build it with *Zigraysm*
+- As *Raylib* has a `build.zig` file it should be easy to build it with *Zraysm*
 
 ### Install *Wasmer* headers and library
 - Download [Wasmer](https://github.com/wasmerio/wasmer/releases)
@@ -64,15 +64,15 @@
     └── LICENSE
 ```
 
-### Run *Zigraysm*
+### Run *Zraysm*
 - We have an issue using `libwasmer.a` so to run it:
-  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zigraysm ./examples/wat/gcd.wat`
+  - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./examples/wat/gcd.wat`
   - **Note**: only wasm function that takes two i32 arguments and returns one i32 can be called for now
 
 ## Changelog
 
 **2024-06-21**  Gthvn1  <gthvn1@gmail.com>
-  * Read the WAT file as the first argument of `Zigraysm`
+  * Read the WAT file as the first argument of `Zraysm`
   * Read a WAT file instead of using the string
 
 **2024-06-20**  Gthvn1  <gthvn1@gmail.com>
