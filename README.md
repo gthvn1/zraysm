@@ -36,7 +36,6 @@
 │   └── raylib.h
 ├── README.md
 ├── samples
-│   ├── add.wasm
 │   ├── add.wat
 │   ├── favicon.ico
 │   ├── index.html
