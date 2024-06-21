@@ -48,7 +48,8 @@
 │   └── raylib.h
 ├── README.md
 ├── src
-│   └── main.zig
+│   ├── main.zig
+│   └── wat.zig
 └── wasmer
     ├── include
     │   ├── README.md
@@ -57,9 +58,6 @@
     │   ├── wasm.h
     │   └── wasm.hh
     ├── lib
-    │   ├── libwasmer.a
-    │   ├── libwasmer-headless.a
-    │   ├── libwasmer-headless.so
     │   └── libwasmer.so
     └── LICENSE
 ```
