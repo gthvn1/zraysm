@@ -40,5 +40,14 @@ pub fn build(b: *std.Build) void {
     const run_step = b.step("run", "Run zayasm using ./src/wat/gdc.wat");
     run_step.dependOn(&run_cmd.step);
 
-    // TODO: add a test step, ...
+    // Create a test for testing interface
+    const interface_test = b.addTest(.{
+        .root_source_file = b.path("src/interface.zig"),
+        .target = target,
+    });
+    const run_interface_test = b.addRunArtifact(interface_test);
+
+    // Add the step test and add the test of interface
+    const test_step = b.step("test", "Run unit test");
+    test_step.dependOn(&run_interface_test.step);
 }

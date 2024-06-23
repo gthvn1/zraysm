@@ -1,6 +1,5 @@
 const std = @import("std");
 const wat = @import("wat.zig");
-const i = @import("interface.zig");
 
 const r = @cImport({
     @cInclude("raylib.h");
@@ -37,11 +36,11 @@ pub fn main() !void {
     _ = func_args.skip();
     const watf_opt = func_args.next();
 
-    std.debug.print("GCD takes {d} parameter(s)\n", .{i.gcd.inputs.len});
-    inline for (i.gcd.inputs, 0..) |input, idx| {
-        std.debug.print("  - param{d}: {any}\n", .{ idx, input });
-    }
-    std.debug.print("  - output is of type {any}\n", .{i.gcd.output});
+    //std.debug.print("GCD takes {d} parameter(s)\n", .{i.gcd.inputs.len});
+    //inline for (i.gcd.inputs, 0..) |input, idx| {
+    //    std.debug.print("  - param{d}: {any}\n", .{ idx, input });
+    //}
+    //std.debug.print("  - output is of type {any}\n", .{i.gcd.output});
 
     if (watf_opt) |wat_filename| {
         try wat.build_and_run_wat(wat_filename);
