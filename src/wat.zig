@@ -76,9 +76,19 @@ pub fn build_and_run_wat(wat_filename: []const u8) !void {
     }
     defer w.wasm_extern_vec_delete(&exports);
 
-    std.debug.print("Retrieving the gcd function...\n", .{});
-    const gcd_func = w.wasm_extern_as_func(exports.data[0]);
+    // Get the name
+    var export_types = w.wasm_exporttype_vec_t{ .size = 0, .data = null };
+    const export_types_ptr = @as([*c]w.wasm_exporttype_vec_t, @ptrCast(&export_types));
+    w.wasm_module_exports(module, export_types_ptr);
 
+    const export_type = export_types.data[0];
+    const name = w.wasm_exporttype_name(export_type);
+
+    std.debug.print("got name {s}\n", .{name.*.data[0..name.*.size]});
+    std.debug.print("Retrieving the gcd function...\n", .{});
+
+    // Set the function
+    const gcd_func = w.wasm_extern_as_func(exports.data[0]);
     if (gcd_func == null) {
         return WasmError.FuncNull;
     }
