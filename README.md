@@ -17,7 +17,7 @@
 ### Install *Raylib* header and library
 - You need to build [Raylib](https://github.com/raysan5/raylib)
 - Create a directory called *raylib* (or modify *build.zig*)
-- Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
+- Then copy the `raylib.h`, `raymath.h` and `libraylib.a` into the *raylib/* directory
 - As *Raylib* has a `build.zig` file it should be easy to build it with *Zraysm*
 
 ### Install *Wasmer* headers and library
@@ -33,7 +33,8 @@
 ├── LICENSE
 ├── raylib
 │   ├── libraylib.a
-│   └── raylib.h
+│   ├── raylib.h
+│   └── raymat.h
 ├── README.md
 ├── samples
 │   ├── add.wat
