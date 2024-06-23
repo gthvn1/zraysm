@@ -65,6 +65,7 @@
 ### Run *Zraysm*
 - We have an issue using `libwasmer.a` so to run it:
   - `zig build && LD_LIBRARY_PATH=./wasmer/lib ./zig-out/bin/zraysm ./src/wat/gcd.wat`
+  - or you can just do: `zig build run`
   - **Note**: only wasm function that takes two i32 arguments and returns one i32 can be called for now
 
 ## Changelog

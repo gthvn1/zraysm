@@ -30,5 +30,15 @@ pub fn build(b: *std.Build) void {
     // Now build
     b.installArtifact(exe);
 
-    // TODO: add run step, test step, ...
+    // Create the run step
+    const run_cmd = b.addRunArtifact(exe);
+    // Run depends of the install step
+    run_cmd.step.dependOn(b.getInstallStep());
+    run_cmd.setEnvironmentVariable("LD_LIBRARY_PATH", "./wasmer/lib/");
+    run_cmd.addArg("./src/wat/gcd.wat");
+
+    const run_step = b.step("run", "Run zayasm using ./src/wat/gdc.wat");
+    run_step.dependOn(&run_cmd.step);
+
+    // TODO: add a test step, ...
 }
