@@ -71,6 +71,9 @@
 
 ## Changelog
 
+**2024-06-24**  Gthvn1  <gthvn1@gmail.com>
+  * Draw a ship
+
 **2024-06-21**  Gthvn1  <gthvn1@gmail.com>
   * Read the WAT file as the first argument of `Zraysm`
   * Read a WAT file instead of using the string
