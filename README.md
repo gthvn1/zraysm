@@ -89,3 +89,8 @@
   * Link our program with Raylib
   * Calling a C function from Zig (see foo)
   * Initial commit
+
+## Screenshots
+
+### First ship...
+<img align="center" src="https://github.com/gthvn1/zraysm/blob/master/screenshots/first_ship.png">
