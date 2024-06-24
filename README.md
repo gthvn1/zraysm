@@ -17,7 +17,7 @@
 ### Install *Raylib* header and library
 - You need to build [Raylib](https://github.com/raysan5/raylib)
 - Create a directory called *raylib* (or modify *build.zig*)
-- Then copy the `raylib.h` and `libraylib.a` into the *raylib/* directory
+- Then copy the `raylib.h`, `raymath.h` and `libraylib.a` into the *raylib/* directory
 - As *Raylib* has a `build.zig` file it should be easy to build it with *Zraysm*
 
 ### Install *Wasmer* headers and library
@@ -33,7 +33,8 @@
 ├── LICENSE
 ├── raylib
 │   ├── libraylib.a
-│   └── raylib.h
+│   ├── raylib.h
+│   └── raymat.h
 ├── README.md
 ├── samples
 │   ├── add.wat
@@ -70,6 +71,9 @@
 
 ## Changelog
 
+**2024-06-24**  Gthvn1  <gthvn1@gmail.com>
+  * Draw a ship
+
 **2024-06-21**  Gthvn1  <gthvn1@gmail.com>
   * Read the WAT file as the first argument of `Zraysm`
   * Read a WAT file instead of using the string
@@ -88,3 +92,8 @@
   * Link our program with Raylib
   * Calling a C function from Zig (see foo)
   * Initial commit
+
+## Screenshots
+
+### First ship...
+<img align="center" src="https://github.com/gthvn1/zraysm/blob/master/screenshots/first_ship.png">

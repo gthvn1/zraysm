@@ -1,8 +1,10 @@
 const std = @import("std");
 const wat = @import("wat.zig");
+const game_state = @import("game_state.zig");
 
 const r = @cImport({
     @cInclude("raylib.h");
+    @cInclude("raymath.h");
 });
 
 const f = @cImport({
@@ -11,11 +13,28 @@ const f = @cImport({
 
 pub fn main() !void {
     // ----------------------- R A Y L I B ------------------------------------
-    r.InitWindow(800, 600, "Raylib in Zig");
+    const win_width = 800;
+    const win_height = 600;
+
+    // Start with the ship in the middle of the window
+    var ship = game_state.SpaceShip.init(r.Vector2{
+        .x = @as(f32, @floatFromInt(win_width / 2)),
+        .y = @as(f32, @floatFromInt(win_height / 2)),
+    });
+
+    r.InitWindow(win_width, win_height, "Zraysm");
+    r.SetTargetFPS(60);
+
     while (!r.WindowShouldClose()) {
         // Start drawing
         r.BeginDrawing();
+        defer r.EndDrawing();
+
         r.ClearBackground(r.RAYWHITE);
+
+        //ship.updateAngle(0.01);
+        ship.draw();
+
         r.DrawText(
             "All your codebase are belong to us.",
             190,
@@ -23,7 +42,6 @@ pub fn main() !void {
             20,
             r.LIGHTGRAY,
         );
-        r.EndDrawing();
     }
 
     r.CloseWindow();
