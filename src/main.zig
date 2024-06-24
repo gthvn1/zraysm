@@ -22,6 +22,11 @@ pub fn main() !void {
         .y = @as(f32, @floatFromInt(win_height / 2)),
     });
 
+    // Start with a speed of 2.0
+    ship.setVelocity(2.0);
+    // Start by going down
+    ship.setAngle(180.0);
+
     r.InitWindow(win_width, win_height, "Zraysm");
     r.SetTargetFPS(60);
 
@@ -32,6 +37,7 @@ pub fn main() !void {
 
         r.ClearBackground(r.RAYWHITE);
 
+        ship.updatePos();
         //ship.updateAngle(0.01);
         ship.draw();
 
