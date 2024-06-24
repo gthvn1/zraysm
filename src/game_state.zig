@@ -3,51 +3,32 @@ const r = @cImport({
     @cInclude("raymath.h");
 });
 
-fn connectDots(position: r.Vector2, dots: []r.Vector2) void {
-    for (0..dots.len) |idx| {
-        r.DrawLineV(
-            r.Vector2Add(position, dots[idx]),
-            r.Vector2Add(position, dots[(idx + 1) % dots.len]),
-            r.BLACK,
-        );
-    }
-}
+pub const SpaceShip = struct {
+    pos: r.Vector2,
+    dots: []const r.Vector2, // dots
 
-pub const GameState = struct {
-    width: usize,
-    height: usize,
-
-    pub fn init(width: usize, height: usize) GameState {
-        return GameState{
-            .width = width,
-            .height = height,
+    pub fn init(position: r.Vector2) SpaceShip {
+        return SpaceShip{
+            .pos = position,
+            .dots = &[_]r.Vector2{
+                r.Vector2{ .x = -10, .y = 10 },
+                r.Vector2{ .x = 0, .y = -10 },
+                r.Vector2{ .x = 10, .y = 10 },
+            },
         };
     }
 
-    pub fn update(self: *GameState) void {
-        _ = self;
+    pub fn updatePos(self: *SpaceShip, v: r.Vector2) void {
+        r.Vector2Add(self.pos, v);
+    }
 
-        // Start drawing
-        r.BeginDrawing();
-        defer r.EndDrawing();
-
-        r.ClearBackground(r.RAYWHITE);
-
-        var dots = [_]r.Vector2{
-            r.Vector2{ .x = -10, .y = 10 },
-            r.Vector2{ .x = 0, .y = -10 },
-            r.Vector2{ .x = 10, .y = 10 },
-        };
-
-        connectDots(r.Vector2{ .x = 100, .y = 100 }, dots[0..]);
-        connectDots(r.Vector2{ .x = 100, .y = 200 }, dots[0..]);
-
-        r.DrawText(
-            "All your codebase are belong to us.",
-            190,
-            200,
-            20,
-            r.LIGHTGRAY,
-        );
+    pub fn draw(self: *SpaceShip) void {
+        for (0..self.dots.len) |idx| {
+            r.DrawLineV(
+                r.Vector2Add(self.pos, self.dots[idx]),
+                r.Vector2Add(self.pos, self.dots[(idx + 1) % self.dots.len]),
+                r.BLACK,
+            );
+        }
     }
 };

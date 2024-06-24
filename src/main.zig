@@ -15,12 +15,31 @@ pub fn main() !void {
     // ----------------------- R A Y L I B ------------------------------------
     const win_width = 800;
     const win_height = 600;
-    var state = game_state.GameState.init(win_width, win_height);
 
-    r.InitWindow(win_width, win_height, "Raylib in Zig");
+    // Start with the ship in the middle of the window
+    var ship = game_state.SpaceShip.init(r.Vector2{
+        .x = @as(f32, @floatFromInt(win_width / 2)),
+        .y = @as(f32, @floatFromInt(win_height / 2)),
+    });
+
+    r.InitWindow(win_width, win_height, "Zraysm");
 
     while (!r.WindowShouldClose()) {
-        state.update();
+        // Start drawing
+        r.BeginDrawing();
+        defer r.EndDrawing();
+
+        r.ClearBackground(r.RAYWHITE);
+
+        ship.draw();
+
+        r.DrawText(
+            "All your codebase are belong to us.",
+            190,
+            200,
+            20,
+            r.LIGHTGRAY,
+        );
     }
 
     r.CloseWindow();
