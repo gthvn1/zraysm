@@ -1,5 +1,6 @@
 const std = @import("std");
 const wat = @import("wat.zig");
+const game_state = @import("game_state.zig");
 
 const r = @cImport({
     @cInclude("raylib.h");
@@ -10,41 +11,16 @@ const f = @cImport({
     @cInclude("foo.h");
 });
 
-pub fn connectDots(position: r.Vector2, dots: []r.Vector2) void {
-    for (0..dots.len) |idx| {
-        r.DrawLineV(
-            r.Vector2Add(position, dots[idx]),
-            r.Vector2Add(position, dots[(idx + 1) % dots.len]),
-            r.BLACK,
-        );
-    }
-}
-
 pub fn main() !void {
     // ----------------------- R A Y L I B ------------------------------------
-    r.InitWindow(800, 600, "Raylib in Zig");
+    const win_width = 800;
+    const win_height = 600;
+    var state = game_state.GameState.init(win_width, win_height);
+
+    r.InitWindow(win_width, win_height, "Raylib in Zig");
+
     while (!r.WindowShouldClose()) {
-        // Start drawing
-        r.BeginDrawing();
-        r.ClearBackground(r.RAYWHITE);
-
-        var dots = [_]r.Vector2{
-            r.Vector2{ .x = -10, .y = 10 },
-            r.Vector2{ .x = 0, .y = -10 },
-            r.Vector2{ .x = 10, .y = 10 },
-        };
-
-        connectDots(r.Vector2{ .x = 100, .y = 100 }, dots[0..]);
-        connectDots(r.Vector2{ .x = 100, .y = 200 }, dots[0..]);
-
-        r.DrawText(
-            "All your codebase are belong to us.",
-            190,
-            200,
-            20,
-            r.LIGHTGRAY,
-        );
-        r.EndDrawing();
+        state.update();
     }
 
     r.CloseWindow();
