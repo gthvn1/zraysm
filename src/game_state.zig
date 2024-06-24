@@ -7,6 +7,7 @@ pub const SpaceShip = struct {
     pos: r.Vector2,
     angle: f32,
     velocity: f32,
+    max_speed: f32,
     dots: []const r.Vector2, // dots
 
     pub fn init(position: r.Vector2) SpaceShip {
@@ -14,6 +15,7 @@ pub const SpaceShip = struct {
             .pos = position,
             .angle = 0.0,
             .velocity = 0.0,
+            .max_speed = 4.0,
             .dots = &[_]r.Vector2{
                 r.Vector2{ .x = 0, .y = 0 }, // Remember that origin is at the upper left corner
                 r.Vector2{ .x = -10, .y = 10 },
@@ -42,8 +44,18 @@ pub const SpaceShip = struct {
         self.velocity = speed;
     }
 
+    pub fn updateVelocity(self: *SpaceShip, speed: f32) void {
+        if (self.velocity < self.max_speed) {
+            self.velocity += speed;
+        }
+    }
+
     pub fn setAngle(self: *SpaceShip, degree: f32) void {
         self.angle = r.DEG2RAD * degree;
+    }
+
+    pub fn updateAngle(self: *SpaceShip, degree: f32) void {
+        self.angle += r.DEG2RAD * degree;
     }
 
     pub fn draw(self: *SpaceShip) void {

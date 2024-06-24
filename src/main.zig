@@ -22,23 +22,28 @@ pub fn main() !void {
         .y = @as(f32, @floatFromInt(win_height / 2)),
     });
 
-    // Start with a speed of 2.0
-    ship.setVelocity(2.0);
-    // Start by going down
-    ship.setAngle(180.0);
-
     r.InitWindow(win_width, win_height, "Zraysm");
     r.SetTargetFPS(60);
 
     while (!r.WindowShouldClose()) {
-        // Start drawing
         r.BeginDrawing();
         defer r.EndDrawing();
 
         r.ClearBackground(r.RAYWHITE);
 
+        if (r.IsKeyDown(r.KEY_LEFT)) {
+            ship.updateAngle(-2.0);
+        }
+
+        if (r.IsKeyDown(r.KEY_RIGHT)) {
+            ship.updateAngle(2.0);
+        }
+
+        if (r.IsKeyDown(r.KEY_UP)) {
+            ship.updateVelocity(0.1);
+        }
+
         ship.updatePos();
-        //ship.updateAngle(0.01);
         ship.draw();
 
         r.DrawText(
