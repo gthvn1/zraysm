@@ -23,6 +23,7 @@ pub fn main() !void {
     });
 
     r.InitWindow(win_width, win_height, "Zraysm");
+    r.SetTargetFPS(60);
 
     while (!r.WindowShouldClose()) {
         // Start drawing
@@ -31,6 +32,7 @@ pub fn main() !void {
 
         r.ClearBackground(r.RAYWHITE);
 
+        //ship.updateAngle(0.01);
         ship.draw();
 
         r.DrawText(
