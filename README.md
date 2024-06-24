@@ -37,20 +37,9 @@
 │   └── raymat.h
 ├── README.md
 ├── samples
-│   ├── add.wat
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── README.md
-│   └── run_server.sh
+│   ...
 ├── src
-│   ├── c
-│   │   ├── foo.c
-│   │   └── foo.h
-│   ├── main.zig
-│   ├── wat
-│   │   ├── gcd.wat
-│   │   └── hello.wat
-│   └── wat.zig
+│   ...
 ├── wasmer
 │   ├── include
 │   │   ├── README.md
